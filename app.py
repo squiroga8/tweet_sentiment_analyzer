@@ -13,22 +13,6 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'this_should_be_configured')
 
-
-###
-# Routing for your application.
-###
-
-@app.route('/')
-def home():
-    """Render website's home page."""
-    return render_template('home.html', mood="", tweet_exhibits_text="")
-
-
-## @app.route('/about/')
-## def about():
-   ## """Render the website's about page."""
- ##   return render_template('about.html')
-
 ## import libraries
 import keras
 import tensorflow as tf
@@ -39,7 +23,6 @@ from keras.models import model_from_json
 import numpy as np 
 import pickle
 from keras.preprocessing.sequence import pad_sequences
-
 
 ## load model and tokenizer
 with open('mood_tokenizer.pickle', 'rb') as file:
@@ -60,14 +43,13 @@ with graph1.as_default():
         model.load_weights('mood_model.h5')
 
 ###
-# The functions below should be applicable to all Flask apps.
+# Routing for your application.
 ###
 
-@app.route('/<file_name>.txt')
-def send_text_file(file_name):
-    """Send your static text file."""
-    file_dot_text = file_name + '.txt'
-    return app.send_static_file(file_dot_text)
+@app.route('/')
+def home():
+    """Render website's home page."""
+    return render_template('home.html', mood="", tweet_exhibits_text="")
 
 @app.route('/analyze_tweet', methods=['POST'])
 def analyze_tweet():
@@ -82,15 +64,32 @@ def analyze_tweet():
     mood = labels[np.argmax(preds)]
     return render_template('home.html', mood=mood, tweet_exhibits_text="This tweet exhibits:")
 
-## @app.after_request
-## def add_header(response):
+## @app.route('/about/')
+## def about():
+   ## """Render the website's about page."""
+ ##   return render_template('about.html')
+
+
+##@app.route('/<file_name>.txt')
+##def send_text_file(file_name):
+##    """Send your static text file."""
+##    file_dot_text = file_name + '.txt'
+##    return app.send_static_file(file_dot_text)
+
+
+###
+# The functions below should be applicable to all Flask apps.
+###
+
+@app.after_request
+def add_header(response):
     """
- ##   Add headers to both force latest IE rendering engine or Chrome Frame,
-  ##  and also to cache the rendered page for 10 minutes.
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
     """
-##    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
- ##   response.headers['Cache-Control'] = 'public, max-age=600'
-  ##  return response
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=600'
+    return response
 
 
 @app.errorhandler(404)
