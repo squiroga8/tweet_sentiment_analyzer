@@ -24,10 +24,10 @@ def home():
     return render_template('home.html', mood="", tweet_exhibits_text="")
 
 
-#@app.route('/about/')
-#def about():
-    """Render the website's about page."""
- #   return render_template('about.html')
+## @app.route('/about/')
+## def about():
+   ## """Render the website's about page."""
+ ##   return render_template('about.html')
 
 ## import libraries
 import keras
@@ -82,15 +82,15 @@ def analyze_tweet():
     mood = labels[np.argmax(preds)]
     return render_template('home.html', mood=mood, tweet_exhibits_text="This tweet exhibits:")
 
-#@app.after_request
-#def add_header(response):
+## @app.after_request
+## def add_header(response):
     """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to cache the rendered page for 10 minutes.
+ ##   Add headers to both force latest IE rendering engine or Chrome Frame,
+  ##  and also to cache the rendered page for 10 minutes.
     """
-#    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
- #   response.headers['Cache-Control'] = 'public, max-age=600'
-  #  return response
+##    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+ ##   response.headers['Cache-Control'] = 'public, max-age=600'
+  ##  return response
 
 
 @app.errorhandler(404)
