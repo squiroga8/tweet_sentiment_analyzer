@@ -1,0 +1,18 @@
+<html>
+<h1><center>Tweet Mood Analyzer</center></h1>
+<br>
+<br>
+<form action="{{ url_for('analyze_tweet' }}" method="post">
+	<center><h3> Please enter a tweet below </h3></center>
+	<br>
+	<center><input type="text" id="tweet" name="tweet"></center>
+	<br>
+	<center><button id="analyze"> Analyze </button></center>
+</form>
+<br>
+<br>
+<center><h4><span id="tweet_exhibits_test">{{tweet_exhibits_text}}</span></h4></center>
+<br>
+<center><span id="mood">{{mood}}</span></center>
+<br>
+</html>
